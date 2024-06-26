@@ -60,8 +60,8 @@ all: main-build
 main-build: STM32C031.elf secondary-outputs
 
 # Tool invocations
-STM32C031.elf STM32C031.map: $(OBJS) $(USER_OBJS) C:\GIT\aotai\STM32\STM32C031\STM32C031C6TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32C031.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\GIT\aotai\STM32\STM32C031\STM32C031C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32C031.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+STM32C031.elf STM32C031.map: $(OBJS) $(USER_OBJS) G:\git\STM32\STM32C031\STM32C031C6TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "STM32C031.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"G:\git\STM32\STM32C031\STM32C031C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32C031.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
