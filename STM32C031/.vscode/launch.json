@@ -22,3 +22,38 @@
     }
   ]
 }
+{
+  "files.exclude": {
+    "**/*.lis": true,
+    "**/*.cof": true,
+    "**/*._c": true,
+    "**/*._h": true,
+    "**/*.i": true,
+    "**/*.s": true,
+    "**/*.dbg": true,
+    "**/*.lk": true,
+    "**/*.lst": true,
+    "**/*.mak": true,
+    "**/*.mp": true,
+    "**/*.AAB": true,
+    "**/*.AAA": true,
+    "**/*.SRC": true,
+    "**/*.zip": true,
+    "**/*._tx": true,
+    "**/*.prj": true,
+    "**/*.hex": true,
+    "**/*.o": true,
+    "**/*.obj": true,
+    "**/*.htm": true,
+    "**/*.m51": true,
+    "**/*.lnp": true,
+    "**/*.__i": true,
+    "**/*.uvproj": true,
+    "**/*.uvopt": true,
+    "**/*.admin": true,
+    "**/*.bak": true,
+    "**/*.o": true,
+    "**/*.Administrator": true,
+    //"**/*.A51": true,
+  }
+}

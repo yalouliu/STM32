@@ -43,3 +43,22 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-06-26 13:48:31.922
 !MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2024-06-26 17:41:29.931 -----------------------------------------------
+eclipse.buildId=Version 1.15.1
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  C:\GIT\aotai\STM32\STM32C031\.project
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 C:\GIT\aotai\STM32\STM32C031\.project
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-06-26 17:41:42.575
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-06-26 17:41:42.577
+!MESSAGE Log4j2 initialized with config file C:\GIT\aotai\STM32\STM32C031\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-06-26 17:41:52.956
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-06-26 17:41:56.214
+!MESSAGE Indexed 'STM32C031' (22 sources, 120 headers) in 2.81 sec: 11,309 declarations; 40,848 references; 1 unresolved inclusions; 66 syntax errors; 240 unresolved names (0.46%)
