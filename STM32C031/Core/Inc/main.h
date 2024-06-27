@@ -57,6 +57,7 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define I2C_ADDRESS 0x05
 
 /* USER CODE BEGIN Private defines */
 

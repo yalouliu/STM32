@@ -52,6 +52,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 STM32C031.list \
 
+OBJCOPY_HEX += \
+STM32C031.hex \
+
 
 # All Target
 all: main-build
@@ -60,8 +63,8 @@ all: main-build
 main-build: STM32C031.elf secondary-outputs
 
 # Tool invocations
-STM32C031.elf STM32C031.map: $(OBJS) $(USER_OBJS) G:\git\STM32\STM32C031\STM32C031C6TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32C031.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"G:\git\STM32\STM32C031\STM32C031C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32C031.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+STM32C031.elf STM32C031.map: $(OBJS) $(USER_OBJS) C:\GIT\aotai\STM32\STM32C031\STM32C031C6TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "STM32C031.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\GIT\aotai\STM32\STM32C031\STM32C031C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32C031.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -75,12 +78,17 @@ STM32C031.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+STM32C031.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "STM32C031.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) STM32C031.elf STM32C031.list STM32C031.map default.size.stdout
+	-$(RM) STM32C031.elf STM32C031.hex STM32C031.list STM32C031.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
