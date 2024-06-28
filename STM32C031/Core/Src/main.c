@@ -76,6 +76,13 @@ PUTCHAR_PROTOTYPE
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+#define USART_REC_LEN 256
+uint8_t USART2_RX_CNT = 0;            // 接收缓冲计数
+uint8_t aRxBuffer;                    // 接收缓冲中断
+uint8_t USART2_RX_BUF[USART_REC_LEN]; // 接收缓冲,最大USART_REC_LEN个字节.（一般给200，接收数据量大就增加）
+uint16_t USART2_RX_STA;               // 接收状态标记
+uint8_t cAlmStr[] = "DataOverflow(>256)";
+
 /* USER CODE END 0 */
 
 /**
@@ -110,6 +117,8 @@ int main(void)
   MX_USART2_UART_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
+  // 接收中断函数
+  HAL_UART_Receive_IT(&huart2, (uint8_t *)&aRxBuffer, 1);
   uint32_t i = 0;
   /* USER CODE END 2 */
 
@@ -132,7 +141,7 @@ int main(void)
 printf("hello world! \n");
     // HAL_Delay(200);
     //  HAL_UART_Transmit(&huart2, "ok\r\n", strlen("ok\r\n"), 0xFFFF);
-     HAL_Delay(500);//中文显示
+HAL_Delay(2000); // 中文显示
   }
   /* USER CODE END 3 */
 }
@@ -172,6 +181,30 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  static uint8_t i = 0;
+  static uint8_t cnt = 0;
+  if (USART2_RX_CNT >= 255) // 溢出判断
+  {
+    USART2_RX_CNT = 0;
+    memset(USART2_RX_BUF, 0x00, sizeof(USART2_RX_BUF));
+    HAL_UART_Transmit(&huart2, (uint8_t *)&cAlmStr, sizeof(cAlmStr), 0xFFFF);
+  }
+  else
+  {
+    USART2_RX_BUF[USART2_RX_CNT++] = aRxBuffer; // 接收数据转存
+    // if ((USART2_RX_BUF[USART2_RX_CNT - 1] == 0x0A) || (USART2_RX_BUF[USART2_RX_CNT - 2] == 0x0D)) // 判断
+    if (USART2_RX_CNT > 10)
+    {
+      HAL_UART_Transmit(&huart2, (uint8_t *)&USART2_RX_BUF, USART2_RX_CNT, 0xFFFF); // 将收到的
+      USART2_RX_CNT = 0;
+      memset(USART2_RX_BUF, 0x00, sizeof(USART2_RX_BUF)); // 清空数组
+    }
+  }
+  HAL_UART_Receive_IT(&huart2, (uint8_t *)&aRxBuffer, 1); // 再开启接收中断
+}
 
 /* USER CODE END 4 */
 
